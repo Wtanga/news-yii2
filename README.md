@@ -28,6 +28,7 @@
 pg_restore -h yourhost -U yourusername -F c -d mokriy_nos dumpsql.tar.gz
 
 yourhost - имя хоста машины, на которой работает сервер
+
 yourusername - имя пользователя для подключения
 
 2. Конфигурация yii2-news/config/db.php
