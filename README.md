@@ -34,6 +34,7 @@ yourusername - имя пользователя для подключения
 'dsn' => 'pgsql:host=localhost;port=5432;dbname=mokriy_nos',
 'username' => 'postgres',
 'password' => '',
+
 Подставить свои данные
 
 3. Запуск сервера 
