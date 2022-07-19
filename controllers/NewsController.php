@@ -38,10 +38,7 @@ class NewsController extends Controller
 
         $slug = Yii::$app->getRequest()->getQueryParam('slug');
 
-        $tableName = News::tableName();
-        $query = "SELECT * FROM {$tableName} WHERE slug = :slug";
-        $news = News::findBySql($query, [':slug' => strtolower($slug)])->asArray()->one();
-
+        $news = News::findBySlug($slug);
         if (!$news) {
             throw new HttpException(404, 'Page not found');
         }

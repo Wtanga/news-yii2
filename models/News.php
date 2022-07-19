@@ -48,7 +48,7 @@ class News extends ActiveRecord
             ['short_text', 'string', 'length' => [1, 511]],
             ['text', 'string', 'length' => [1, 1000]],
             ['category_id', 'categoryValidator'],
-            ['title', 'titleValidator'],
+            ['title', 'titleModifier'],
             ['slug', 'trim'],
             ['date', 'date', 'format' => 'php:Y-m-d H:i:s'],
         ];
@@ -57,7 +57,7 @@ class News extends ActiveRecord
     /**
      * Generates slug field transliterates is from title field
      */
-    public function titleValidator()
+    public function titleModifier()
     {
         $this->slug = $this->translit($this->title);
     }
@@ -70,6 +70,11 @@ class News extends ActiveRecord
         if (!$model = Category::findOne($this->category_id)) {
             $this->addError('category_id', 'Wrong category number');
         }
+    }
+
+    public static function findBySlug($slug)
+    {
+        return static::findOne(['slug' => strtolower($slug)]);
     }
 
     /**
