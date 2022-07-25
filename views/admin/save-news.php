@@ -13,13 +13,13 @@ $this->params['breadcrumbs'][] = 'News Form';
 
 <?php $activeForm = ActiveForm::begin(['options' => ['id' => 'comment-form']]); ?>
 
-<?= $activeForm->field($model, 'category_id')->dropDownList($categoriesList); ?>
+<?= $activeForm->field($newsModel, 'category_id')->dropDownList($categoriesList); ?>
 
-<?= $activeForm->field($model, 'title'); ?>
-<?= $activeForm->field($model, 'short_text')->textArea(['rows' => 5]); ?>
-<?= $activeForm->field($model, 'text')->textArea(['rows' => 5]); ?>
+<?= $activeForm->field($newsModel, 'title'); ?>
+<?= $activeForm->field($newsModel, 'short_text')->textArea(['rows' => 5]); ?>
+<?= $activeForm->field($newsModel, 'text')->textArea(['rows' => 5]); ?>
 
-<?= $activeForm->field($model, 'is_active')
+<?= $activeForm->field($newsModel, 'is_active')
     ->checkbox([
             'value' => '1',
             'checked ' => true,

@@ -87,12 +87,12 @@ class AdminController extends Controller
     {
         $newsId = (int)Yii::$app->getRequest()->getQueryParam('id');
 
-        if (!$model = News::findOne($newsId)) {
+        if (!$news = News::findOne($newsId)) {
             Yii::$app->session->setFlash('error', 'News is not found!');
             return $this->redirect(Yii::$app->request->referrer);
         }
 
-        if (!$model->delete()) {
+        if (!$news->delete()) {
             Yii::$app->session->setFlash('error', 'Deleting error');
             return $this->redirect(Yii::$app->request->referrer);
         }
@@ -113,17 +113,17 @@ class AdminController extends Controller
     {
         $categoryId = (int)Yii::$app->getRequest()->getQueryParam('id');
 
-        if (!$model = Category::findOne($categoryId)) {
+        if (!$category = Category::findOne($categoryId)) {
             Yii::$app->session->setFlash('error', 'Category is not found!');
             return $this->redirect(Yii::$app->request->referrer);
         }
 
-        if (News::findOne(['category_id' => $model->id])) {
+        if (News::findOne(['category_id' => $category->id])) {
             Yii::$app->session->setFlash('error', 'Category is not empty, therefore can\'t be removed');
             return $this->redirect(Yii::$app->request->referrer);
         }
 
-        if (!$model->delete()) {
+        if (!$category->delete()) {
             Yii::$app->session->setFlash('error', 'Deleting error');
             return $this->redirect(Yii::$app->request->referrer);
         }
@@ -139,9 +139,9 @@ class AdminController extends Controller
      */
     public function actionAddNews()
     {
-        $model = new News();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
+        $newsModel = new News();
+        if ($newsModel->load(Yii::$app->request->post())) {
+            if ($newsModel->save()) {
                 Yii::$app->session->setFlash('success', 'News is created');
                 return $this->refresh();
             } else {
@@ -157,7 +157,7 @@ class AdminController extends Controller
         }
 
         return $this->render('save-news', [
-            'model' => $model,
+            'model' => $newsModel,
             'categoriesList' => $categoriesList,
         ]);
     }
@@ -170,10 +170,10 @@ class AdminController extends Controller
     public function actionEditNews()
     {
         $newsId = Yii::$app->getRequest()->getQueryParam('id');
-        $model = News::findOne($newsId);
+        $newsModel = News::findOne($newsId);
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
+        if ($newsModel->load(Yii::$app->request->post())) {
+            if ($newsModel->save()) {
                 Yii::$app->session->setFlash('success', 'News is saved');
                 return $this->refresh();
             } else {
@@ -189,7 +189,7 @@ class AdminController extends Controller
         }
 
         return $this->render('save-news', [
-            'model' => $model,
+            'model' => $newsModel,
             'categoriesList' => $categoriesList,
         ]);
     }
@@ -201,10 +201,10 @@ class AdminController extends Controller
      */
     public function actionAddCategory()
     {
-        $model = new Category();
+        $categoryModel = new Category();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
+        if ($categoryModel->load(Yii::$app->request->post())) {
+            if ($categoryModel->save()) {
                 Yii::$app->session->setFlash('success', 'Category is created');
                 return $this->refresh();
             } else {
@@ -220,7 +220,7 @@ class AdminController extends Controller
         }
 
         return $this->render('save-category', [
-            'model' => $model,
+            'model' => $categoryModel,
             'categoriesList' => $categoriesList,
         ]);
     }
@@ -233,10 +233,10 @@ class AdminController extends Controller
     public function actionEditCategory()
     {
         $categoryId = Yii::$app->getRequest()->getQueryParam('id');
-        $model = Category::findOne($categoryId);
+        $categoryModel = Category::findOne($categoryId);
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
+        if ($categoryModel->load(Yii::$app->request->post())) {
+            if ($categoryModel->save()) {
                 Yii::$app->session->setFlash('success', 'Category is saved');
                 return $this->refresh();
             } else {
@@ -252,7 +252,7 @@ class AdminController extends Controller
         }
 
         return $this->render('save-category', [
-            'model' => $model,
+            'model' => $categoryModel,
             'categoriesList' => $categoriesList,
         ]);
     }

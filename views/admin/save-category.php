@@ -13,9 +13,9 @@ $this->params['breadcrumbs'][] = 'Category Form';
 
 <?php $activeForm = ActiveForm::begin(['options' => ['id' => 'comment-form']]); ?>
 
-<?= $activeForm->field($model, 'parent_id')->dropDownList($categoriesList); ?>
+<?= $activeForm->field($categoryModel, 'parent_id')->dropDownList($categoriesList); ?>
 
-<?= $activeForm->field($model, 'name'); ?>
+<?= $activeForm->field($categoryModel, 'name'); ?>
 
 <?= Html::submitButton('Send', ['class' => 'btn btn-success']); ?>
 

@@ -159,13 +159,13 @@ class CreateController extends Controller
 
         foreach ($this->categories as $category) {
 
-            $model = new Category();
+            $categoryModel = new Category();
 
-            $model->id = $category[0];
-            $model->parent_id = $category[1];
-            $model->name = $category[2];
+            $categoryModel->id = $category[0];
+            $categoryModel->parent_id = $category[1];
+            $categoryModel->name = $category[2];
 
-            $model->save();
+            $categoryModel->save();
         }
 
         return sprintf("%s categories created", count($this->categories));
@@ -190,20 +190,20 @@ class CreateController extends Controller
 
         foreach ($this->news as $news) {
 
-            $model = new News();
+            $newsModel = new News();
 
 
-            $model->category_id = $news;
-            $model->title = sprintf("%s %s", $this->newsTitleTemplate, $increment);
-            $model->short_text = sprintf("%s", $this->newsShortTextTemplate);;
-            $model->text = sprintf("%s", $this->newsTextTemplate);
-            $model->is_active = true;
-            $model->slug = sprintf("%s_%s", $this->newsSlugTemplate, $increment);
+            $newsModel->category_id = $news;
+            $newsModel->title = sprintf("%s %s", $this->newsTitleTemplate, $increment);
+            $newsModel->short_text = sprintf("%s", $this->newsShortTextTemplate);;
+            $newsModel->text = sprintf("%s", $this->newsTextTemplate);
+            $newsModel->is_active = true;
+            $newsModel->slug = sprintf("%s_%s", $this->newsSlugTemplate, $increment);
 
-            $model->date = $date->format('Y-m-d H:i:s');
+            $newsModel->date = $date->format('Y-m-d H:i:s');
             $date->add($dateInterval);
 
-            $model->save();
+            $newsModel->save();
 
             $increment++;
         }
